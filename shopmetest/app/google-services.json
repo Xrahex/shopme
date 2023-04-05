@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "256338797012",
+    "firebase_url": "https://shopmaster-96f93-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "shopmaster-96f93",
+    "storage_bucket": "shopmaster-96f93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256338797012:android:8f77ae278c7476d96eb641",
+        "android_client_info": {
+          "package_name": "com.example.dom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256338797012-mivp4220nibq94p2ge053ui7v8q1jqr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOGiRZ3JaaCh18bBbyM1Jk7WKtpD0PYwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256338797012-mivp4220nibq94p2ge053ui7v8q1jqr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256338797012:android:11de5339dc95446f6eb641",
+        "android_client_info": {
+          "package_name": "com.example.shopmetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256338797012-mivp4220nibq94p2ge053ui7v8q1jqr3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOGiRZ3JaaCh18bBbyM1Jk7WKtpD0PYwY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256338797012-mivp4220nibq94p2ge053ui7v8q1jqr3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
