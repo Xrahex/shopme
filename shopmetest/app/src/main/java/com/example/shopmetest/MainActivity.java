@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
             AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
             long czaswcisnieciaprzycisku = System.currentTimeMillis();
-            long czaswms = 1000 * 30;
+            long czaswms = 1000 * 5;
 
             alarmManager.set(AlarmManager.RTC_WAKEUP, czaswcisnieciaprzycisku + czaswms, pendingIntent);
 

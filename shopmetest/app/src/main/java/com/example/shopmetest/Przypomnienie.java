@@ -13,7 +13,7 @@ public class Przypomnienie extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "przypomnienie")
-                .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
+                .setSmallIcon(R.drawable.logo_n)
                 .setContentTitle("ShopMe")
                 .setContentText("Nie zapomnij zrobić zakupów!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
