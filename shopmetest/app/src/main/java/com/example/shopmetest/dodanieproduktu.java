@@ -56,6 +56,8 @@ public class dodanieproduktu extends AppCompatActivity {
                 if(strona !=null) {
                     produkt.setStrona_gazetkowicza(strona);
                 }
+                produkt.setStatus(false);
+                produkt.setLista(test);
 
                 db.collection("listy").document(test).collection("produkty").document(nazwa)
                         .set(produkt).addOnSuccessListener(new OnSuccessListener<Void>() {

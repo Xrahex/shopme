@@ -6,9 +6,27 @@ public class Produkt {
     private String liczba_produktow;
     private String strona_gazetkowicza;
 
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    private Boolean status;
+
+    public String getLista() {
+        return lista;
+    }
+
+    public void setLista(String lista) {
+        this.lista = lista;
+    }
+
+    private String lista;
 
     public Produkt() {
-
     }
 
     public String getNazwa() {

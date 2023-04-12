@@ -1,17 +1,25 @@
 package com.example.shopmetest;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -40,13 +48,22 @@ public class szczegolylisty extends AppCompatActivity {
         ArrayList<Produkt> p = new ArrayList<>();
 
         myAdapter adapter;
+        Media_adapter adapter2;
+        //adapter2 = new Media_adapter(this,R.layout.row,p,this);
         adapter = new myAdapter(this, p);
         produkty.setAdapter(adapter);
 
 
-
         sluchaniejednegodokumentu(test);
         funkcja3(db,p,adapter,test);
+
+        produkty.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                zakupiono(p.get(position).getLista(),db,p.get(position).getNazwa());
+                return true;
+            }
+        });
 
         dodaj.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +73,7 @@ public class szczegolylisty extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
 
 
     }
@@ -103,4 +121,22 @@ public class szczegolylisty extends AppCompatActivity {
                     }
                 });
     }
+
+    public void zakupiono (String title, FirebaseFirestore db,String name) {
+                        db.collection("listy").document(title).collection("produkty").document(name)
+                                .update("status",true)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(szczegolylisty.this,"Usunięto!",Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(szczegolylisty.this,"Wystąpił bląd!",Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                    }
+
 }
