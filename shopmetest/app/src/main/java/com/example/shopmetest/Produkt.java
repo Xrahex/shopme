@@ -6,6 +6,16 @@ public class Produkt {
     private String liczba_produktow;
     private String strona_gazetkowicza;
 
+    public Boolean getSchemat() {
+        return schemat;
+    }
+
+    public void setSchemat(Boolean schemat) {
+        this.schemat = schemat;
+    }
+
+    private Boolean schemat;
+
     public Boolean getStatus() {
         return status;
     }

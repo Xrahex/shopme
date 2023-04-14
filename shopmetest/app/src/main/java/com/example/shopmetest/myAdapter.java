@@ -65,7 +65,14 @@ import java.util.ArrayList;
                     @Override
                     public void onClick(View v) {
                         Log.d("essunia","elo");
-                        usuwanie_produktu(arrayList.get(position).getLista(),db,arrayList.get(position).getNazwa());
+                        if(arrayList.get(position).getSchemat() == true) {
+                            usuwanie_produktu2(arrayList.get(position).getLista(),db,arrayList.get(position).getNazwa());
+                        }
+                        if(arrayList.get(position).getSchemat() == false) {
+                            usuwanie_produktu(arrayList.get(position).getLista(),db,arrayList.get(position).getNazwa());
+                        }
+
+
                     }
                 });
                 Produkt produkt = new Produkt();
@@ -100,5 +107,31 @@ import java.util.ArrayList;
                         }})
                     .setNegativeButton(android.R.string.cancel, null).show();
         }
+        public void usuwanie_produktu2(String title, FirebaseFirestore db,String name) {
+            new AlertDialog.Builder(context)
+                    .setTitle("Usunięcie produktu")
+                    .setMessage("Czy na pewno chcesz ususnąć produkt?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            db.collection("szablony").document(title).collection("produkty").document(name)
+                                    .delete()
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(context,"Usunięto!",Toast.LENGTH_LONG).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(context,"Wystąpił bląd!",Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                        }})
+                    .setNegativeButton(android.R.string.cancel, null).show();
+        }
+
+
         }
 

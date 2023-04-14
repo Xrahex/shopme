@@ -31,6 +31,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/btn_szablony"
+        style="@style/BUTTON"
+        android:layout_width="169dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="364dp"
+        android:text="Szablony"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toTopOf="parent" />
+
+    <Button
         android:id="@+id/listy"
         android:layout_width="169dp"
         android:layout_height="56dp"

@@ -45,6 +45,7 @@ public class szczegolylisty extends AppCompatActivity {
         Button dodaj = findViewById(R.id.btn_dodaj_produkt);
         Intent intent= getIntent();
         String test =intent.getStringExtra("nazwa_listy");
+        String tryb =intent.getStringExtra("trybito");
         ArrayList<Produkt> p = new ArrayList<>();
 
         myAdapter adapter;
@@ -53,14 +54,22 @@ public class szczegolylisty extends AppCompatActivity {
         adapter = new myAdapter(this, p);
         produkty.setAdapter(adapter);
 
+        if(tryb.equals("lista")) {
+            sluchaniejednegodokumentu(test);
+            funkcja3(db,p,adapter,test);
+        }
+        if(tryb.equals("szablon")) {
+            sluchaniejednegodokumentuschemat(test);
+            funkcja3szablon(db,p,adapter,test);
+        }
 
-        sluchaniejednegodokumentu(test);
-        funkcja3(db,p,adapter,test);
 
         produkty.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                zakupiono(p.get(position).getLista(),db,p.get(position).getNazwa());
+                if(tryb.equals("lista")) {
+                    zakupiono(p.get(position).getLista(), db, p.get(position).getNazwa());
+                }
                 return true;
             }
         });
@@ -70,16 +79,36 @@ public class szczegolylisty extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),dodanieproduktu.class);
                 intent.putExtra("nazwa",test);
+                intent.putExtra("tryb",tryb);
                 startActivity(intent);
             }
         });
-
-
 
     }
 
     public void sluchaniejednegodokumentu(String test) {
         final DocumentReference docRef = db.collection("listy").document(test);
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("test1", "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.d("test2", "Current data: " + snapshot.getData());
+                    TextView nazwa_listy = findViewById(R.id.nazwa_listy);
+                    nazwa_listy.setText(snapshot.get("title").toString());
+                } else {
+                    Log.d("test3", "Current data: null");
+                }
+            }
+        });
+    }
+    public void sluchaniejednegodokumentuschemat(String test) {
+        final DocumentReference docRef = db.collection("szablony").document(test);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
@@ -122,13 +151,35 @@ public class szczegolylisty extends AppCompatActivity {
                 });
     }
 
+    public void funkcja3szablon(FirebaseFirestore db, List<Produkt> ListElementsArrayList, myAdapter adapter,String test ) {
+        db.collection("szablony").document(test).collection("produkty")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("wynik80", "Listen failed.", e);
+                            return;
+                        }
+                        ListElementsArrayList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            if(doc != null) {
+                                ListElementsArrayList.add(doc.toObject(Produkt.class));
+                                adapter.notifyDataSetChanged();
+                            }
+
+                        }
+                    }
+                });
+    }
+
     public void zakupiono (String title, FirebaseFirestore db,String name) {
                         db.collection("listy").document(title).collection("produkty").document(name)
                                 .update("status",true)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(szczegolylisty.this,"Usunięto!",Toast.LENGTH_LONG).show();
+                                        Toast.makeText(szczegolylisty.this,"Zakupiono!",Toast.LENGTH_LONG).show();
                                     }
                                 })
                                 .addOnFailureListener(new OnFailureListener() {

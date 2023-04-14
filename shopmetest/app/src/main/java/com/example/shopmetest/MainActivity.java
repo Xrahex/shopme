@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button listy;
     Button zmiana_motywu;
     Button mapy;
+    Button szablony;
     boolean nightMODE;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+     szablony = findViewById(R.id.btn_szablony);
      listy = findViewById(R.id.listy);
      zmiana_motywu = findViewById(R.id.motyw);
      mapy = findViewById(R.id.mapa);
@@ -97,6 +99,14 @@ public class MainActivity extends AppCompatActivity {
          @Override
          public void onClick(View v) {
              startNewActivity(getApplicationContext(),"com.google.android.gms.maps");
+         }
+     });
+
+     szablony.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             Intent intent = new Intent(getApplicationContext(), szablony.class);
+             startActivity(intent);
          }
      });
 

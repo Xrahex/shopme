@@ -31,26 +31,37 @@ public class dodawanie_listy extends AppCompatActivity {
         setContentView(R.layout.activity_dodawanie_listy);
 
         btn_dodanie_listy= findViewById(R.id.btn_dodanie_listy);
+        Intent intent= getIntent();
+        String mode =intent.getStringExtra("trybik");
+        Log.d("mode8", mode);
 
         btn_dodanie_listy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dodanie_listy = findViewById(R.id.dodanie_listy2);
                 String tytul = dodanie_listy.getText().toString();
-
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
                 Map<String, Object> lista = new HashMap<>();
                 lista.put("title", tytul);
-
-                db.collection("listy").document(tytul)
-                        .set(lista).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                Toast.makeText(dodawanie_listy.this,"Utworzono nową liste!",Toast.LENGTH_LONG).show();
-                            }
-                        });
-
+                if(mode.equals("New list")) {
+                    db.collection("listy").document(tytul)
+                            .set(lista).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(dodawanie_listy.this, "Utworzono nową liste!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                }
+                if(mode.equals("New schema")) {
+                    db.collection("szablony").document(tytul)
+                            .set(lista).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(dodawanie_listy.this, "Utworzono nowy szablon!", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                }
                 finish();
 
             }

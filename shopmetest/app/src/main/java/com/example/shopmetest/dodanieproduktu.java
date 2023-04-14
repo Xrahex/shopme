@@ -36,6 +36,7 @@ public class dodanieproduktu extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Intent intent= getIntent();
         String test =intent.getStringExtra("nazwa");
+        String tryb =intent.getStringExtra("tryb");
 
 
         dodaj_produkt.setOnClickListener(new View.OnClickListener() {
@@ -58,16 +59,34 @@ public class dodanieproduktu extends AppCompatActivity {
                 }
                 produkt.setStatus(false);
                 produkt.setLista(test);
+                if(tryb.equals("szablon")) {
+                    produkt.setSchemat(true);
+                }
+                else {
+                    produkt.setSchemat(false);
+                }
+               if(tryb.equals("lista")) {
 
-                db.collection("listy").document(test).collection("produkty").document(nazwa)
-                        .set(produkt).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                finish();
-                            }
-                        });
+                   db.collection("listy").document(test).collection("produkty").document(nazwa)
+                           .set(produkt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                               @Override
+                               public void onSuccess(Void unused) {
+                                   finish();
+                               }
+                           });
+               }
+                if(tryb.equals("szablon")) {
 
+                    db.collection("szablony").document(test).collection("produkty").document(nazwa)
+                            .set(produkt).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    finish();
+                                }
+                            });
+                }
             }
+
         });
 
 
