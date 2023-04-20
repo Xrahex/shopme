@@ -3,7 +3,6 @@ package com.example.shopmetest;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -24,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -52,7 +49,6 @@ public class dodawanie_listy extends AppCompatActivity {
         ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, ListElementsArrayList);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(ad);
-        Log.d("listahejhej", ListElementsArrayList.toString());
         wyszukanieszablonow(db,ListElementsArrayList,ad);
         aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +67,9 @@ public class dodawanie_listy extends AppCompatActivity {
         Intent intent= getIntent();
         String mode =intent.getStringExtra("trybik");
         Log.d("mode8", mode);
+        if(mode.equals("New schema")) {
+            aSwitch.setVisibility(View.INVISIBLE);
+        }
 
         btn_dodanie_listy.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,12 +80,16 @@ public class dodawanie_listy extends AppCompatActivity {
                 Map<String, Object> lista = new HashMap<>();
                 lista.put("title", tytul);
                 if(mode.equals("New list")) {
-
-                    db.collection("listy").document(tytul)
-                            .set(lista).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    aSwitch.setVisibility(View.VISIBLE);
+                    String szablon = spinner.getSelectedItem().toString();
+                    db.collection("listy").document(tytul).
+                            set(lista).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
                                     Toast.makeText(dodawanie_listy.this, "Utworzono nową liste!", Toast.LENGTH_LONG).show();
+                                    if(aSwitch.isChecked()==true) {
+                                        funkcja_spinner(db, szablon, tytul);
+                                    }
                                 }
                             });
                 }
@@ -100,12 +103,38 @@ public class dodawanie_listy extends AppCompatActivity {
                             });
                 }
                 finish();
-
             }
         });
-
-
     }
+
+    public void funkcja_spinner(FirebaseFirestore db,String test, String test2 ) {
+        db.collection("szablony").document(test).collection("produkty")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("wynik80", "Listen failed.", e);
+                            return;
+                        }
+                        ArrayList<Produkt> produkt = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : value) {
+                            if(doc != null) {
+                                Produkt p = new Produkt();
+                                p = doc.toObject(Produkt.class);
+                                p.setSchemat(false);
+                                p.setLista(test2);
+                                produkt.add(p);
+                            }
+                        }
+                        for(int i=0; i<produkt.size(); i++) {
+                            db.collection("listy").document(test2).collection("produkty")
+                                    .document(produkt.get(i).getNazwa()).set(produkt.get(i));
+                        }
+                    }
+                });
+    }
+
     public void wyszukanieszablonow(FirebaseFirestore db, List<String> ListElementsArrayList, ArrayAdapter<String> adapter ) {
         db.collection("szablony")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

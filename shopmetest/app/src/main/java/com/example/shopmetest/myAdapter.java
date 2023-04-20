@@ -71,8 +71,6 @@ import java.util.ArrayList;
                         if(arrayList.get(position).getSchemat() == false) {
                             usuwanie_produktu(arrayList.get(position).getLista(),db,arrayList.get(position).getNazwa());
                         }
-
-
                     }
                 });
                 Produkt produkt = new Produkt();
