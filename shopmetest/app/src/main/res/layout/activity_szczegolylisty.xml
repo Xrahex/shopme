@@ -31,12 +31,13 @@
 
     <Button
         android:id="@+id/btn_dodaj_produkt"
+        style="@style/BUTTON"
         android:layout_width="108dp"
         android:layout_height="61dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="108dp"
         android:text="Dodaj"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.72"
+        app:layout_constraintHorizontal_bias="0.722"
         app:layout_constraintStart_toEndOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,4 +51,5 @@
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nazwa_listy" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
