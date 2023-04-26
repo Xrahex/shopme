@@ -10,36 +10,49 @@
 
     <Button
         android:id="@+id/mapa"
+        style="@style/BUTTON"
         android:layout_width="169dp"
         android:layout_height="56dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="16dp"
         android:text="mapa"
-        style="@style/BUTTON"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/motyw" />
 
     <Button
         android:id="@+id/btn_powiadomienie"
         style="@style/BUTTON"
         android:layout_width="169dp"
         android:layout_height="56dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginTop="16dp"
         android:text="Powiadomienie"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mapa" />
+
+    <Button
+        android:id="@+id/btn_historia"
+        style="@style/BUTTON"
+        android:layout_width="169dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:text="Historia"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_szablony" />
 
     <Button
         android:id="@+id/btn_szablony"
         style="@style/BUTTON"
         android:layout_width="169dp"
         android:layout_height="56dp"
-        android:layout_marginTop="364dp"
+        android:layout_marginTop="16dp"
         android:text="Szablony"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_powiadomienie" />
 
     <Button
         android:id="@+id/listy"

@@ -16,11 +16,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -41,7 +38,7 @@ public class lista extends AppCompatActivity {
         Button usuniecie_listy;
         dodanie_listy = findViewById(R.id.dodaj);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        ListView lista = findViewById(R.id.listawyswietlanie);
+        ListView lista = findViewById(R.id.wyswitlanielist);
 
         String [] listaelementow = new String []{};
       final List<String> ListElementsArrayList = new ArrayList<>(Arrays.asList(listaelementow));
@@ -83,7 +80,7 @@ public class lista extends AppCompatActivity {
     }
 
     public void funkcja2(FirebaseFirestore db, List<String> ListElementsArrayList, ArrayAdapter<String> adapter ) {
-        db.collection("listy")
+        db.collection("listy").whereEqualTo("archiwizowany",false)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
@@ -125,6 +122,26 @@ public class lista extends AppCompatActivity {
                                     }
                                 });
                     }})
+                .setNeutralButton("Archiwizuj", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        db.collection("listy").document(title)
+                                .update("archiwizowany",true)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(lista.this,"Archiwizowano!",Toast.LENGTH_LONG).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(lista.this,"Wystąpił bląd!",Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                    }
+                })
                 .setNegativeButton(android.R.string.cancel, null).show();
+
     }
 }

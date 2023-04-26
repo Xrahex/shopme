@@ -1,9 +1,8 @@
 package com.example.shopmetest;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.Activity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,9 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
-import com.google.android.gms.tasks.OnFailureListener;
+
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -24,9 +22,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class dodawanie_listy extends AppCompatActivity {
 
@@ -77,8 +73,9 @@ public class dodawanie_listy extends AppCompatActivity {
                 dodanie_listy = findViewById(R.id.dodanie_listy2);
                 String tytul = dodanie_listy.getText().toString();
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                Map<String, Object> lista = new HashMap<>();
-                lista.put("title", tytul);
+                klasalisty lista = new klasalisty();
+                lista.title = tytul;
+                lista.archiwizowany= false;
                 if(mode.equals("New list")) {
                     aSwitch.setVisibility(View.VISIBLE);
                     String szablon = spinner.getSelectedItem().toString();

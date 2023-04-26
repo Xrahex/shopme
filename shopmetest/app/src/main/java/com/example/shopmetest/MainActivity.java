@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Button zmiana_motywu;
     Button mapy;
     Button szablony;
+    Button historia;
     boolean nightMODE;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
      listy = findViewById(R.id.listy);
      zmiana_motywu = findViewById(R.id.motyw);
      mapy = findViewById(R.id.mapa);
+     historia = findViewById(R.id.btn_historia);
 
      listy.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -113,6 +115,15 @@ public class MainActivity extends AppCompatActivity {
        mAdView = findViewById(R.id.adView);
        AdRequest adRequest = new AdRequest.Builder().build();
        mAdView.loadAd(adRequest);
+
+       historia.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(getApplicationContext(), historia.class);
+               startActivity(intent);
+           }
+       });
+
 
     }
     private void createNotificationChannel() {

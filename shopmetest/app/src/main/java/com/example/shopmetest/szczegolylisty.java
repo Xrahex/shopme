@@ -49,18 +49,28 @@ public class szczegolylisty extends AppCompatActivity {
         ArrayList<Produkt> p = new ArrayList<>();
 
         myAdapter adapter;
-        Media_adapter adapter2;
-        //adapter2 = new Media_adapter(this,R.layout.row,p,this);
+        myAdapterhistoria adapter2;
+
+
         adapter = new myAdapter(this, p);
-        produkty.setAdapter(adapter);
+        adapter2 = new myAdapterhistoria(this, p);
 
         if(tryb.equals("lista")) {
+            produkty.setAdapter(adapter);
             sluchaniejednegodokumentu(test);
             funkcja3(db,p,adapter,test);
+
         }
         if(tryb.equals("szablon")) {
+            produkty.setAdapter(adapter);
             sluchaniejednegodokumentuschemat(test);
             funkcja3szablon(db,p,adapter,test);
+        }
+        if(tryb.equals("historia")) {
+            produkty.setAdapter(adapter2);
+            sluchaniejednegodokumentu(test);
+            funkcja3historia(db,p,adapter2,test);
+            dodaj.setVisibility(View.INVISIBLE);
         }
 
 
@@ -153,6 +163,28 @@ public class szczegolylisty extends AppCompatActivity {
 
     public void funkcja3szablon(FirebaseFirestore db, List<Produkt> ListElementsArrayList, myAdapter adapter,String test ) {
         db.collection("szablony").document(test).collection("produkty")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("wynik80", "Listen failed.", e);
+                            return;
+                        }
+                        ListElementsArrayList.clear();
+                        for (QueryDocumentSnapshot doc : value) {
+                            if(doc != null) {
+                                ListElementsArrayList.add(doc.toObject(Produkt.class));
+                                adapter.notifyDataSetChanged();
+                            }
+
+                        }
+                    }
+                });
+    }
+
+    public void funkcja3historia(FirebaseFirestore db, List<Produkt> ListElementsArrayList, myAdapterhistoria adapter,String test ) {
+        db.collection("listy").document(test).collection("produkty")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
