@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button mapy;
     Button szablony;
     Button historia;
+    Button statystyki;
     boolean nightMODE;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
      zmiana_motywu = findViewById(R.id.motyw);
      mapy = findViewById(R.id.mapa);
      historia = findViewById(R.id.btn_historia);
+     statystyki= findViewById(R.id.btn_statystyki);
 
      listy.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -100,7 +102,8 @@ public class MainActivity extends AppCompatActivity {
      mapy.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
-             startNewActivity(getApplicationContext(),"com.google.android.gms.maps");
+             Intent intent = new Intent(getApplicationContext(), naszemapy.class);
+             startActivity(intent);
          }
      });
 
@@ -120,6 +123,14 @@ public class MainActivity extends AppCompatActivity {
            @Override
            public void onClick(View v) {
                Intent intent = new Intent(getApplicationContext(), historia.class);
+               startActivity(intent);
+           }
+       });
+
+       statystyki.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(getApplicationContext(), Statystyki.class);
                startActivity(intent);
            }
        });

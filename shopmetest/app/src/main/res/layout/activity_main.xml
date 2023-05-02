@@ -14,7 +14,7 @@
         android:layout_width="169dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
-        android:text="mapa"
+        android:text="Wyznacz trase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/motyw" />
@@ -41,6 +41,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_szablony" />
+
+    <Button
+        android:id="@+id/btn_statystyki"
+        style="@style/BUTTON"
+        android:layout_width="169dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:text="Statystyki"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintTop_toBottomOf="@+id/btn_historia" />
 
     <Button
         android:id="@+id/btn_szablony"
