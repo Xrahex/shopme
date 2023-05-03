@@ -1,13 +1,13 @@
 package com.example.shopmetest;
 
+import static com.google.android.gms.tasks.Tasks.await;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.AggregateQuery;
 import com.google.firebase.firestore.AggregateQuerySnapshot;
 import com.google.firebase.firestore.AggregateSource;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -24,6 +25,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class Statystyki extends AppCompatActivity {
 
@@ -46,7 +48,7 @@ public class Statystyki extends AppCompatActivity {
         statystyki_archwizowane(db);
         liczba_szablonow(db);
         srednia_ilosc_produktow(db);
-        funkcja2(db);
+
     }
 
     public void statystyki_aktywnych(FirebaseFirestore db) {
@@ -63,6 +65,7 @@ public class Statystyki extends AppCompatActivity {
                 } else {
                     Log.d("XD2", "Count failed: ", task.getException());
                 }
+
             }
         });
     }
@@ -130,10 +133,11 @@ public class Statystyki extends AppCompatActivity {
                         }
                         final long[] licznik = {0};
                         long liczba_list = 0;
+                        final long[] srednia = {0};
                         for (QueryDocumentSnapshot doc : value) {
                             if (doc.getId() != null) {
-                                Query query = db.collection("listy").document(doc.getId()).collection("produkty");
-                                AggregateQuery countQuery = query.count();
+                                Query query =db.collection("listy").document(doc.getId()).collection("produkty");
+                                AggregateQuery countQuery =query.count();
                                 countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
@@ -146,11 +150,22 @@ public class Statystyki extends AppCompatActivity {
                                         } else {
                                             Log.d("XD2", "Count failed: ", task.getException());
                                         }
+                                        try {
+                                            await(task);
+                                        } catch (ExecutionException ex) {
+                                            ex.printStackTrace();
+                                        } catch (InterruptedException ex) {
+                                            ex.printStackTrace();
+                                        }
                                     }
                                 });
                             }
+
                             liczba_list++;
-                            Log.d("test101", "" + liczba_list);
+                            srednia[0] = licznik[0]/liczba_list;
+                            Log.d("srednia", "" + srednia[0]);
+
+                            Log.d("liczba list", "" + liczba_list);
                         }
                             long liczba = licznik[0];
                             long wynik = liczba/liczba_list;
