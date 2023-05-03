@@ -16,8 +16,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
        statystyki.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent intent = new Intent(getApplicationContext(), Statystyki.class);
+               Intent intent = new Intent(getApplicationContext(), home.class);
                startActivity(intent);
            }
        });
