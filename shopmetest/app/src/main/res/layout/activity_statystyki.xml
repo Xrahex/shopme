@@ -7,9 +7,20 @@
     tools:context=".Statystyki">
 
     <TextView
+        android:id="@+id/dane_statystyki7"
+        android:layout_width="187dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dane_statystyki6" />
+
+    <TextView
         android:id="@+id/dane_statystyki"
-        android:layout_width="213dp"
-        android:layout_height="88dp"
+        android:layout_width="182dp"
+        android:layout_height="41dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,8 +29,8 @@
 
     <TextView
         android:id="@+id/dane_statystyki2"
-        android:layout_width="213dp"
-        android:layout_height="88dp"
+        android:layout_width="183dp"
+        android:layout_height="37dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,8 +39,8 @@
 
     <TextView
         android:id="@+id/dane_statystyki3"
-        android:layout_width="213dp"
-        android:layout_height="88dp"
+        android:layout_width="190dp"
+        android:layout_height="44dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,11 +49,34 @@
 
     <TextView
         android:id="@+id/dane_statystyki4"
-        android:layout_width="213dp"
-        android:layout_height="88dp"
+        android:layout_width="187dp"
+        android:layout_height="40dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dane_statystyki3" />
+
+    <TextView
+        android:id="@+id/dane_statystyki5"
+        android:layout_width="187dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dane_statystyki4" />
+
+    <TextView
+        android:id="@+id/dane_statystyki6"
+        android:layout_width="187dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dane_statystyki5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,10 @@ import java.util.concurrent.ExecutionException;
 
 public class Statystyki extends AppCompatActivity {
 
-    TextView text,text2,text3,text4;
+    TextView text,text2,text3,text4,text5,text6,text7;
+    long liczba_produktow=0;
+    long liczba_list=0;
+    long liczba_zakupionych_produktow=0;
 
 
     @Override
@@ -42,13 +45,82 @@ public class Statystyki extends AppCompatActivity {
         text2 = findViewById(R.id.dane_statystyki2);
         text3 = findViewById(R.id.dane_statystyki3);
         text4 = findViewById(R.id.dane_statystyki4);
+        text5 = findViewById(R.id.dane_statystyki5);
+        text6 = findViewById(R.id.dane_statystyki6);
+        text7 = findViewById(R.id.dane_statystyki7);
 
 
         statystyki_aktywnych(db);
         statystyki_archwizowane(db);
         liczba_szablonow(db);
-        srednia_ilosc_produktow(db);
+        wszystkie_listy(db, new callbackstatystyk() {
+            @Override
+            public void onCallback(long liczba) {
 
+            }
+
+            @Override
+            public void dodaj(long liczba1) {
+
+            }
+
+            @Override
+            public void dodaj2(long liczba1) {
+                liczba_list=liczba1;
+                Log.d("Liczba_list",""+liczba_list);
+            }
+        });
+        funkcja2(db, new callbackstatystyk() {
+            @Override
+            public void onCallback(long liczba) {
+
+            }
+
+            @Override
+            public void dodaj(long liczba1) {
+                liczba_produktow=liczba1;
+                Log.d("Liczba_prod",""+liczba_produktow);
+                double zmienna=0;
+                text4.setText("Średnia liczba produktów na liste: "+zmienna);
+                if(liczba_list>0) {
+                    double x=liczba_produktow,y=liczba_list;
+                    zmienna=x/y;
+                    text4.setText("Średnia liczba produktów na liste: "+zmienna);
+                }
+
+            }
+
+            @Override
+            public void dodaj2(long liczba1) {
+            }
+        });
+
+        zakupione_srednia(db, new callbackstatystyk() {
+            @Override
+            public void onCallback(long liczba) {
+
+            }
+
+            @Override
+            public void dodaj(long liczba1) {
+                liczba_zakupionych_produktow=liczba1;
+                Log.d("Liczba_prod",""+liczba_zakupionych_produktow);
+                double zmienna=0;
+                text5.setText("Średnia liczba wykupionych produktów na liste: "+zmienna);
+                text6.setText("Liczba utworzonych produktów: "+liczba_produktow);
+                text7.setText("Liczba wykupionych produktów: "+liczba_zakupionych_produktow);
+                if(liczba_list>0) {
+                    double x = liczba_zakupionych_produktow, y = liczba_list;
+                    zmienna = x / y;
+                    text5.setText("Średnia liczba wykupionych produktów na liste: " + zmienna);
+                }
+            }
+
+            @Override
+            public void dodaj2(long liczba1) {
+
+            }
+        });
     }
 
     public void statystyki_aktywnych(FirebaseFirestore db) {
@@ -103,7 +175,7 @@ public class Statystyki extends AppCompatActivity {
         });
     }
 
-    public void srednia_ilosc_produktow(FirebaseFirestore db) {
+    public void wszystkie_listy(FirebaseFirestore db, callbackstatystyk s) {
         Query query = db.collection("listy");
         AggregateQuery countQuery = query.count();
         countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
@@ -112,7 +184,8 @@ public class Statystyki extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Count fetched successfully
                     AggregateQuerySnapshot snapshot = task.getResult();
-                    Log.d("XD1", "Count: " + snapshot.getCount());
+                    Log.d("wszystkielisty", "Wszystkie: " + snapshot.getCount());
+                    s.dodaj2(snapshot.getCount());
                 } else {
                     Log.d("XD2", "Count failed: ", task.getException());
                 }
@@ -120,8 +193,7 @@ public class Statystyki extends AppCompatActivity {
         });
     }
 
-    public void funkcja2(FirebaseFirestore db) {
-        final List<String>[] arrayList = new List[]{new ArrayList<>()};
+    public void funkcja2(FirebaseFirestore db,callbackstatystyk s) {
         db.collection("listy")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -132,8 +204,6 @@ public class Statystyki extends AppCompatActivity {
                             return;
                         }
                         final long[] licznik = {0};
-                        long liczba_list = 0;
-                        final long[] srednia = {0};
                         for (QueryDocumentSnapshot doc : value) {
                             if (doc.getId() != null) {
                                 Query query =db.collection("listy").document(doc.getId()).collection("produkty");
@@ -142,37 +212,81 @@ public class Statystyki extends AppCompatActivity {
                                     @Override
                                     public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
                                         if (task.isSuccessful()) {
-                                            // Count fetched successfully
                                             AggregateQuerySnapshot snapshot = task.getResult();
-                                            //  Log.d("XD1", "Count: " + snapshot.getCount());
                                             licznik[0] = licznik[0] + snapshot.getCount();
-                                            Log.d("test9", "" + licznik[0]);
+                                            s.dodaj(licznik[0]);
+                                            Log.d("licznik", "" + licznik[0]);
                                         } else {
                                             Log.d("XD2", "Count failed: ", task.getException());
-                                        }
-                                        try {
-                                            await(task);
-                                        } catch (ExecutionException ex) {
-                                            ex.printStackTrace();
-                                        } catch (InterruptedException ex) {
-                                            ex.printStackTrace();
                                         }
                                     }
                                 });
                             }
-
-                            liczba_list++;
-                            srednia[0] = licznik[0]/liczba_list;
-                            Log.d("srednia", "" + srednia[0]);
-
-                            Log.d("liczba list", "" + liczba_list);
                         }
-                            long liczba = licznik[0];
-                            long wynik = liczba/liczba_list;
-                            Log.d("test10", "" + wynik);
                     }
-
                 });
+    }
+    public void zakupione_srednia(FirebaseFirestore db,callbackstatystyk s) {
+        db.collection("listy")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value,
+                                        @Nullable FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.w("wynik80", "Listen failed.", e);
+                            return;
+                        }
+                        final long[] licznik = {0};
+                        for (QueryDocumentSnapshot doc : value) {
+                            if (doc.getId() != null) {
+                                Query query =db.collection("listy").document(doc.getId()).collection("produkty").whereEqualTo("status",true);
+                                AggregateQuery countQuery =query.count();
+                                countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            AggregateQuerySnapshot snapshot = task.getResult();
+                                            licznik[0] = licznik[0] + snapshot.getCount();
+                                            s.dodaj(licznik[0]);
+                                            Log.d("licznik", "" + licznik[0]);
+                                        } else {
+                                            Log.d("XD2", "Count failed: ", task.getException());
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+    }
+
+    private interface callbackstatystyk {
+        void onCallback(long liczba);
+        void dodaj(long liczba1);
+        void dodaj2(long liczba1);
+
+    }
+
+
+    public void read(callbackstatystyk s) {
+        final long[] liczba_list = {0};
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Query query = db.collection("listy");
+        AggregateQuery countQuery = query.count();
+        countQuery.get(AggregateSource.SERVER).addOnCompleteListener(new OnCompleteListener<AggregateQuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<AggregateQuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    // Count fetched successfully
+                    AggregateQuerySnapshot snapshot = task.getResult();
+                    Log.d("wszystkielisty", "Wszystkie: " + snapshot.getCount());
+                    liczba_list[0] =snapshot.getCount();
+                    s.onCallback(liczba_list[0]);
+                } else {
+                    Log.d("XD2", "Count failed: ", task.getException());
+                }
+            }
+        });
     }
 
 }
