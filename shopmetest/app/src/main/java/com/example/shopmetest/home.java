@@ -48,6 +48,8 @@ public class home extends AppCompatActivity {
         historia = findViewById(R.id.cardarchiwum);
         statystyki= findViewById(R.id.cardstatystyki);
 
+        DailyNotificationReceiver.setDailyNotification(this);
+
         listy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,8 +161,6 @@ public class home extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
-
-
 
 
 }
