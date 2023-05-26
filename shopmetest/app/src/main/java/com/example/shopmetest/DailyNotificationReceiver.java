@@ -22,6 +22,9 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
     private static final String CHANNEL_ID = "daily_notification_channel";
     private static final String CHANNEL_NAME = "Daily Notifications";
 
+/**
+ * Funckja tworząca powiadomienie o zakupach
+ * */
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -45,7 +48,9 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
                 NotificationManagerCompat.from(context);
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
-
+    /**
+     * Funkcja ustawiająca czas powiadomienia
+     * */
     public static void setDailyNotification(Context context) {
         //czas ustawienie
         Calendar calendar = Calendar.getInstance();

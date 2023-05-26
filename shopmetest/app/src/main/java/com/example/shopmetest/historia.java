@@ -50,6 +50,9 @@ public class historia extends AppCompatActivity {
 
     }
 
+    /**
+     *Funkcja odpowiadająca za pobranie historii z bazy danych
+     * */
     public void wyciagnieciehistorii(FirebaseFirestore db, List<String> ListElementsArrayList, ArrayAdapter<String> adapter ) {
         db.collection("listy").whereEqualTo("archiwizowany",true)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

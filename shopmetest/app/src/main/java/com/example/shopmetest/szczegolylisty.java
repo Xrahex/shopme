@@ -36,6 +36,9 @@ public class szczegolylisty extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
+    /**
+     *Funkcja odpowiadająca za wyświetlenie szczegolylisty (nazwa,ilosc,strona w gazetce)
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,9 @@ public class szczegolylisty extends AppCompatActivity {
 
 
         produkty.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            /**
+             *Funkcja odpowiadająca za oznaczenie produktu jako zakupionego
+             * */
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 if(tryb.equals("lista")) {
@@ -95,7 +101,9 @@ public class szczegolylisty extends AppCompatActivity {
         });
 
     }
-
+    /**
+     *Funkcja odpowiadająca za zmiane nazwy listy w czasie rzeczywistym
+     * */
     public void sluchaniejednegodokumentu(String test) {
         final DocumentReference docRef = db.collection("listy").document(test);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -117,6 +125,9 @@ public class szczegolylisty extends AppCompatActivity {
             }
         });
     }
+    /**
+     *Funkcja odpowiadająca za zmiane nazwy schematu w czasie rzeczywistym
+     * */
     public void sluchaniejednegodokumentuschemat(String test) {
         final DocumentReference docRef = db.collection("szablony").document(test);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -138,7 +149,9 @@ public class szczegolylisty extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     *Funkcja odpowiadająca za uzuzpełnianie listy produktów oraz nasłuchiwanie zmian w bazie danych
+     * */
     public void funkcja3(FirebaseFirestore db, List<Produkt> ListElementsArrayList, myAdapter adapter,String test ) {
         db.collection("listy").document(test).collection("produkty")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -160,7 +173,9 @@ public class szczegolylisty extends AppCompatActivity {
                     }
                 });
     }
-
+    /**
+     *Funkcja odpowiadająca za uzuzpełnianie schematów produktów oraz nasłuchiwanie zmian w bazie danych
+     * */
     public void funkcja3szablon(FirebaseFirestore db, List<Produkt> ListElementsArrayList, myAdapter adapter,String test ) {
         db.collection("szablony").document(test).collection("produkty")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -182,7 +197,9 @@ public class szczegolylisty extends AppCompatActivity {
                     }
                 });
     }
-
+    /**
+     *Funkcja odpowiadająca za uzuzpełnianie historii produktów listy oraz nasłuchiwanie zmian w bazie danych
+     * */
     public void funkcja3historia(FirebaseFirestore db, List<Produkt> ListElementsArrayList, myAdapterhistoria adapter,String test ) {
         db.collection("listy").document(test).collection("produkty")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -204,7 +221,9 @@ public class szczegolylisty extends AppCompatActivity {
                     }
                 });
     }
-
+    /**
+     *Funkcja odpowiadająca za zmiane statusu produktu w bazie danych
+     * */
     public void zakupiono (String title, FirebaseFirestore db,String name) {
                         db.collection("listy").document(title).collection("produkty").document(name)
                                 .update("status",true)

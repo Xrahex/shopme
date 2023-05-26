@@ -34,8 +34,9 @@ public class home extends AppCompatActivity {
     SharedPreferences.Editor editor;
     private AdView mAdView;
 
-
-
+    /**
+     *Funkcja odpowiadająca za otwieranie kolejnych aktywności
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,27 +58,6 @@ public class home extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-//        createNotificationChannel();
-
-//        Button button = findViewById(R.id.btn_powiadomienie);
-//
-//        button.setOnClickListener(v ->{
-//            Toast.makeText(this, "Ustawiono przypomnienie.", Toast.LENGTH_SHORT).show();
-//
-//            Intent intent = new Intent(home.this, Przypomnienie.class);
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(home.this, 0, intent, 0);
-//
-//            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-//
-//            long czaswcisnieciaprzycisku = System.currentTimeMillis();
-//            long czaswms = 1000 * 5;
-//
-//            alarmManager.set(AlarmManager.RTC_WAKEUP, czaswcisnieciaprzycisku + czaswms, pendingIntent);
-//
-//        });
-
 
 
         zmiana_motywu.setOnClickListener(new View.OnClickListener() {
@@ -137,30 +117,5 @@ public class home extends AppCompatActivity {
             }
         });
 
-
     }
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Powiadamiacz";
-            String description = "Na potrzeby projektu";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("przypomnienie",name,importance);
-            channel.setDescription(description);
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-    public void startNewActivity(Context context, String packageName) {
-        Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        if (intent == null) {
-            // Bring user to the market or let them choose an app?
-            intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("market://details?id=" + packageName));
-        }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intent);
-    }
-
-
 }

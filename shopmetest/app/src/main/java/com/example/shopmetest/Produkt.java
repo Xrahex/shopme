@@ -1,5 +1,7 @@
 package com.example.shopmetest;
-
+/**
+ *Klasa reprezentująca produkt
+ * */
 public class Produkt {
 
     private String nazwa;

@@ -32,6 +32,9 @@ public class szablony extends AppCompatActivity {
 
     Button dodaj;
 
+    /**
+     *Funkcja odpowiadająca za wyświetlenie szanlonów
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,9 +85,11 @@ public class szablony extends AppCompatActivity {
             }
         });
 
-
     }
 
+    /**
+     *Funkcja uzupełniająca liste pobranymi szablonami
+     * */
     public void wyswitlszablony(FirebaseFirestore db, List<String> ListElementsArrayList, ArrayAdapter<String> adapter ) {
         db.collection("szablony")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -104,7 +109,9 @@ public class szablony extends AppCompatActivity {
                     }
                 });
     }
-
+    /**
+     *Funkcja odpowiadająca za usuwanie szablonów
+     * */
     public void usuwanie_szablonu(String title, FirebaseFirestore db) {
         new AlertDialog.Builder(this)
                 .setTitle("Usunięcie szablonu")

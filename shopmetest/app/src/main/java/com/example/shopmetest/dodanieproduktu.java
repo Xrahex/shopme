@@ -20,6 +20,10 @@ import java.util.Locale;
 public class dodanieproduktu extends AppCompatActivity {
 
 
+    /**
+     *Funkcja odpowiadająca za dodanie produktu
+     * */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +43,11 @@ public class dodanieproduktu extends AppCompatActivity {
         String tryb =intent.getStringExtra("tryb");
 
 
+
         dodaj_produkt.setOnClickListener(new View.OnClickListener() {
+            /**
+             *Funkcja odpowiadająca za dodanie produktu do bazy
+             * */
             @Override
             public void onClick(View v) {
                 String nazwa = nazwa_produktu.getText().toString();

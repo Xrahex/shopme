@@ -50,7 +50,9 @@ public class myAdapterhistoria extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
-
+    /**
+     *Funkcja zwracająca element na liste zarchiwizowanych produktów
+     * */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.row, parent, false);

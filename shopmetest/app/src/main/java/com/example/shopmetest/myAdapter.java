@@ -50,7 +50,9 @@ import java.util.ArrayList;
         public long getItemId(int position) {
             return position;
         }
-
+        /**
+         *Funkcja zwracająca element na liste produktow
+         * */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
                 convertView = LayoutInflater.from(context).inflate(R.layout.row, parent, false);
@@ -64,7 +66,6 @@ import java.util.ArrayList;
                 kosz.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("essunia","elo");
                         if(arrayList.get(position).getSchemat() == true) {
                             usuwanie_produktu2(arrayList.get(position).getLista(),db,arrayList.get(position).getNazwa());
                         }
@@ -77,10 +78,12 @@ import java.util.ArrayList;
                 produkt.setNazwa(arrayList.get(position).getNazwa());
                 if(arrayList.get(position).getStatus()== true) {
                 convertView.setBackgroundColor(Color.GREEN);}
-                // nazwa.setPaintFlags(nazwa.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             return convertView;
             }
 
+        /**
+         *Funkcja odpowiadająca za usunięcie produktu z listy
+         * */
         public void usuwanie_produktu(String title, FirebaseFirestore db,String name) {
             new AlertDialog.Builder(context)
                     .setTitle("Usunięcie produktu")
@@ -105,6 +108,9 @@ import java.util.ArrayList;
                         }})
                     .setNegativeButton(android.R.string.cancel, null).show();
         }
+        /**
+         *Funkcja odpowiadająca za usunięcie produktu z szablonu
+         * */
         public void usuwanie_produktu2(String title, FirebaseFirestore db,String name) {
             new AlertDialog.Builder(context)
                     .setTitle("Usunięcie produktu")

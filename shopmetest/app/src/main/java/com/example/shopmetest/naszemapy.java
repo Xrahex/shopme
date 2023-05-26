@@ -46,6 +46,9 @@ public class naszemapy extends AppCompatActivity implements OnMapReadyCallback {
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
 
+    /**
+     *Funkcja odpowiadająca za wczytanie aktywności naszemapy
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +76,9 @@ public class naszemapy extends AppCompatActivity implements OnMapReadyCallback {
 
         });
     }
-
+    /**
+     *Funkcja odpowiadająca za przekazanie celu do aplikacji map google
+     * */
     private void DisplayTrack(String sDestination,String sTarget) {
         try {
             Uri uri = Uri.parse("https://www.google.co.in/maps/dir/" +sDestination+ "/" + sTarget);

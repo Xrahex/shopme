@@ -31,6 +31,9 @@ public class dodawanie_listy extends AppCompatActivity {
     Switch aSwitch;
     Spinner spinner;
 
+    /**
+     *Funkcja odpowiadająca za dodawanie listy lub szablonu
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,6 @@ public class dodawanie_listy extends AppCompatActivity {
         btn_dodanie_listy= findViewById(R.id.btn_dodanie_listy);
         aSwitch = findViewById(R.id.zszablonu);
         spinner = findViewById(R.id.spinnerlistyszablonow);
-        String tablica[]= {"hej","test","test2"};
         ArrayAdapter ad = new ArrayAdapter(this, android.R.layout.simple_spinner_item, ListElementsArrayList);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(ad);
@@ -104,6 +106,9 @@ public class dodawanie_listy extends AppCompatActivity {
         });
     }
 
+    /**
+     *Funkcja odpowiadająca za pobranie produktów z danego szablonu. Dodaje produkty do nowo powstałej listy
+     * */
     public void funkcja_spinner(FirebaseFirestore db,String test, String test2 ) {
         db.collection("szablony").document(test).collection("produkty")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -131,7 +136,9 @@ public class dodawanie_listy extends AppCompatActivity {
                     }
                 });
     }
-
+    /**
+     *Funkcja odpowiadająca za wyszukanie szablonów w bazie danych
+     * */
     public void wyszukanieszablonow(FirebaseFirestore db, List<String> ListElementsArrayList, ArrayAdapter<String> adapter ) {
         db.collection("szablony")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {

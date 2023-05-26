@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Switch;
 
+/**
+ *Klasa odpowiedzialna za zmianę motywu aplikacji
+ * */
 public class zmiana_motywu extends AppCompatActivity {
     Switch switcher;
     boolean nightMODE;

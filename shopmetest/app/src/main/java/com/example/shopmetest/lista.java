@@ -35,7 +35,6 @@ public class lista extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista);
         Button dodanie_listy;
-        Button usuniecie_listy;
         dodanie_listy = findViewById(R.id.dodaj);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         ListView lista = findViewById(R.id.wyswitlanielist);
@@ -47,7 +46,7 @@ public class lista extends AppCompatActivity {
         lista.setAdapter(adapter);
 
 
-        funkcja2(db,ListElementsArrayList,adapter);
+        wybierz_zarchiwizowany(db,ListElementsArrayList,adapter);
 
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -79,7 +78,10 @@ public class lista extends AppCompatActivity {
         });
     }
 
-    public void funkcja2(FirebaseFirestore db, List<String> ListElementsArrayList, ArrayAdapter<String> adapter ) {
+    /**
+     *Funkcja odpowiadająca za wyszukanie list z atrybutem archiwizowany
+     * */
+    public void wybierz_zarchiwizowany(FirebaseFirestore db, List<String> ListElementsArrayList, ArrayAdapter<String> adapter ) {
         db.collection("listy").whereEqualTo("archiwizowany",false)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
@@ -99,7 +101,9 @@ public class lista extends AppCompatActivity {
                     }
                 });
     }
-
+    /**
+     *Funkcja odpowiadająca za usunięcie listy i nadanie jej atrybutu archiwizowany
+     * */
     public void usuwanie_listy(String title, FirebaseFirestore db) {
         new AlertDialog.Builder(this)
                 .setTitle("Usunięcie listy")

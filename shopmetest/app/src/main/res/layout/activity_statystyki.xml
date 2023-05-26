@@ -59,8 +59,8 @@
 
     <TextView
         android:id="@+id/dane_statystyki5"
-        android:layout_width="187dp"
-        android:layout_height="40dp"
+        android:layout_width="186dp"
+        android:layout_height="89dp"
         android:layout_marginTop="32dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"

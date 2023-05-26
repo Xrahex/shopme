@@ -1,6 +1,10 @@
 package com.example.shopmetest;
 
+/**
+ * klasa reprezentująca listy
+ * */
 public class klasalisty {
+
     public klasalisty() {
 
     }

@@ -34,6 +34,9 @@ public class Statystyki extends AppCompatActivity {
     long liczba_list=0;
     long liczba_zakupionych_produktow=0;
 
+    /**
+     *Funkcja odpowiadająca za wczytanie aktywności Statystyki
+     * */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +125,9 @@ public class Statystyki extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     *Funkcja odpowiadająca za wyświetlenie liczby aktywnych list
+     * */
     public void statystyki_aktywnych(FirebaseFirestore db) {
         Query query = db.collection("listy").whereEqualTo("archiwizowany",false);
         AggregateQuery countQuery = query.count();
@@ -141,6 +146,9 @@ public class Statystyki extends AppCompatActivity {
             }
         });
     }
+    /**
+     *Funkcja odpowiadająca za liczbe zarchiwizowanych list
+     * */
     public void statystyki_archwizowane(FirebaseFirestore db) {
         Query query = db.collection("listy").whereEqualTo("archiwizowany",true);
         AggregateQuery countQuery = query.count();
@@ -158,6 +166,9 @@ public class Statystyki extends AppCompatActivity {
             }
         });
     }
+    /**
+     *Funkcja odpowiadająca za wyświetlenie liczby szablonów
+     * */
     public void liczba_szablonow(FirebaseFirestore db) {
         Query query = db.collection("szablony");
         AggregateQuery countQuery = query.count();
@@ -175,6 +186,9 @@ public class Statystyki extends AppCompatActivity {
         });
     }
 
+    /**
+     *Funkcja odpowiadająca za wyświetlenie liczby wszystkich list
+     * */
     public void wszystkie_listy(FirebaseFirestore db, callbackstatystyk s) {
         Query query = db.collection("listy");
         AggregateQuery countQuery = query.count();
@@ -193,6 +207,9 @@ public class Statystyki extends AppCompatActivity {
         });
     }
 
+    /**
+     *Funkcja odpowiadająca za wyświetlenie średniej liczby produktów na liste
+     * */
     public void funkcja2(FirebaseFirestore db,callbackstatystyk s) {
         db.collection("listy")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -226,6 +243,10 @@ public class Statystyki extends AppCompatActivity {
                     }
                 });
     }
+
+    /**
+     *Funkcja odpowiadająca za wyświetlenie średniej ilości zakupionych produktów
+     * */
     public void zakupione_srednia(FirebaseFirestore db,callbackstatystyk s) {
         db.collection("listy")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -266,7 +287,6 @@ public class Statystyki extends AppCompatActivity {
         void dodaj2(long liczba1);
 
     }
-
 
     public void read(callbackstatystyk s) {
         final long[] liczba_list = {0};
