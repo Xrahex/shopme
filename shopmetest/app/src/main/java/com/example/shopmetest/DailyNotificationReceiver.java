@@ -23,7 +23,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
     private static final String CHANNEL_NAME = "Daily Notifications";
 
 /**
- * Funckja tworząca powiadomienie o zakupach
+ * Funkcja tworząca powiadomienie o zakupach
  * */
     @Override
     public void onReceive(Context context, Intent intent) {
