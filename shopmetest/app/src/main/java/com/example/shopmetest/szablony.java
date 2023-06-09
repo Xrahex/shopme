@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *Klasa odpowiedzialna za wyświetlanie szablonów
+ * */
 public class szablony extends AppCompatActivity {
 
     Button dodaj;
@@ -69,7 +72,6 @@ public class szablony extends AppCompatActivity {
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("adam","wciśnieto szablon"+ListElementsArrayList.get(position));
                 Intent intent = new Intent(getApplicationContext(),szczegolylisty.class);
                 intent.putExtra("nazwa_listy",ListElementsArrayList.get(position));
                 intent.putExtra("trybito","szablon");

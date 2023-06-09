@@ -22,7 +22,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-
+/**
+ *Klasa adaptera od historii
+ * */
 public class myAdapterhistoria extends BaseAdapter {
     private Context context;
     private ArrayList<Produkt> arrayList;

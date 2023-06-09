@@ -16,7 +16,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Locale;
-
+/**
+ *Klasa dodawania produktów
+ * */
 public class dodanieproduktu extends AppCompatActivity {
 
 

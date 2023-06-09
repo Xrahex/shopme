@@ -26,7 +26,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
+/**
+ *Klasa odpowiedzialna za statystyki
+ * */
 public class Statystyki extends AppCompatActivity {
 
     TextView text,text2,text3,text4,text5,text6,text7;
@@ -70,7 +72,6 @@ public class Statystyki extends AppCompatActivity {
             @Override
             public void dodaj2(long liczba1) {
                 liczba_list=liczba1;
-                Log.d("Liczba_list",""+liczba_list);
             }
         });
         funkcja2(db, new callbackstatystyk() {
@@ -82,7 +83,6 @@ public class Statystyki extends AppCompatActivity {
             @Override
             public void dodaj(long liczba1) {
                 liczba_produktow=liczba1;
-                Log.d("Liczba_prod",""+liczba_produktow);
                 double zmienna=0;
                 text4.setText("Średnia liczba produktów na liste: "+zmienna);
                 if(liczba_list>0) {
@@ -107,7 +107,6 @@ public class Statystyki extends AppCompatActivity {
             @Override
             public void dodaj(long liczba1) {
                 liczba_zakupionych_produktow=liczba1;
-                Log.d("Liczba_prod",""+liczba_zakupionych_produktow);
                 double zmienna=0;
                 text5.setText("Średnia liczba wykupionych produktów na liste: "+zmienna);
                 text6.setText("Liczba utworzonych produktów: "+liczba_produktow);
@@ -137,10 +136,8 @@ public class Statystyki extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Count fetched successfully
                     AggregateQuerySnapshot snapshot = task.getResult();
-                    Log.d("XD1", "Count: " + snapshot.getCount());
                     text.setText("Ilość aktywnych list: "+ snapshot.getCount());
                 } else {
-                    Log.d("XD2", "Count failed: ", task.getException());
                 }
 
             }
@@ -161,7 +158,6 @@ public class Statystyki extends AppCompatActivity {
                     text2.setText("Ilość zarchiwizowanych list: "+ snapshot.getCount());
 
                 } else {
-                    Log.d("XD2", "Count failed: ", task.getException());
                 }
             }
         });
@@ -180,7 +176,6 @@ public class Statystyki extends AppCompatActivity {
                     AggregateQuerySnapshot snapshot = task.getResult();
                     text3.setText("Ilość szablonów "+ snapshot.getCount());
                 } else {
-                    Log.d("XD2", "Count failed: ", task.getException());
                 }
             }
         });
@@ -198,10 +193,8 @@ public class Statystyki extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Count fetched successfully
                     AggregateQuerySnapshot snapshot = task.getResult();
-                    Log.d("wszystkielisty", "Wszystkie: " + snapshot.getCount());
                     s.dodaj2(snapshot.getCount());
                 } else {
-                    Log.d("XD2", "Count failed: ", task.getException());
                 }
             }
         });
@@ -217,7 +210,6 @@ public class Statystyki extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         final long[] licznik = {0};
@@ -232,9 +224,7 @@ public class Statystyki extends AppCompatActivity {
                                             AggregateQuerySnapshot snapshot = task.getResult();
                                             licznik[0] = licznik[0] + snapshot.getCount();
                                             s.dodaj(licznik[0]);
-                                            Log.d("licznik", "" + licznik[0]);
                                         } else {
-                                            Log.d("XD2", "Count failed: ", task.getException());
                                         }
                                     }
                                 });
@@ -254,7 +244,6 @@ public class Statystyki extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         final long[] licznik = {0};
@@ -269,9 +258,7 @@ public class Statystyki extends AppCompatActivity {
                                             AggregateQuerySnapshot snapshot = task.getResult();
                                             licznik[0] = licznik[0] + snapshot.getCount();
                                             s.dodaj(licznik[0]);
-                                            Log.d("licznik", "" + licznik[0]);
                                         } else {
-                                            Log.d("XD2", "Count failed: ", task.getException());
                                         }
                                     }
                                 });
@@ -299,11 +286,9 @@ public class Statystyki extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     // Count fetched successfully
                     AggregateQuerySnapshot snapshot = task.getResult();
-                    Log.d("wszystkielisty", "Wszystkie: " + snapshot.getCount());
                     liczba_list[0] =snapshot.getCount();
                     s.onCallback(liczba_list[0]);
                 } else {
-                    Log.d("XD2", "Count failed: ", task.getException());
                 }
             }
         });

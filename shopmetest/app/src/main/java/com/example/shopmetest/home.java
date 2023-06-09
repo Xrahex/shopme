@@ -20,7 +20,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-
+/**
+ *Klasa menu głównego
+ * */
 public class home extends AppCompatActivity {
 
     CardView listy;
@@ -35,7 +37,7 @@ public class home extends AppCompatActivity {
     private AdView mAdView;
 
     /**
-     *Funkcja odpowiadająca za otwieranie kolejnych aktywności
+     *Funkcja odpowiadająca za nawigację po menu
      * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

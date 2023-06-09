@@ -37,7 +37,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
+/**
+ *Klasa obsługująca mapy
+ * */
 public class naszemapy extends AppCompatActivity implements OnMapReadyCallback {
 
     EditText etDestination;
@@ -47,7 +49,7 @@ public class naszemapy extends AppCompatActivity implements OnMapReadyCallback {
     private LocationCallback mLocationCallback;
 
     /**
-     *Funkcja odpowiadająca za wczytanie aktywności naszemapy
+     *Funkcja odpowiadająca za wczytanie aktywności naszemapy, gdzie można podać poszukiwaną lokalizację
      * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

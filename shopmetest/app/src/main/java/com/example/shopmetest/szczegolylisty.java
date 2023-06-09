@@ -31,6 +31,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *Klasa wyświetlająca szczegóły danej listy
+ * */
 public class szczegolylisty extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -111,16 +114,13 @@ public class szczegolylisty extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Log.w("test1", "Listen failed.", e);
                     return;
                 }
 
                 if (snapshot != null && snapshot.exists()) {
-                    Log.d("test2", "Current data: " + snapshot.getData());
                     TextView nazwa_listy = findViewById(R.id.nazwa_listy);
                     nazwa_listy.setText(snapshot.get("title").toString());
                 } else {
-                    Log.d("test3", "Current data: null");
                 }
             }
         });
@@ -135,16 +135,13 @@ public class szczegolylisty extends AppCompatActivity {
             public void onEvent(@Nullable DocumentSnapshot snapshot,
                                 @Nullable FirebaseFirestoreException e) {
                 if (e != null) {
-                    Log.w("test1", "Listen failed.", e);
                     return;
                 }
 
                 if (snapshot != null && snapshot.exists()) {
-                    Log.d("test2", "Current data: " + snapshot.getData());
                     TextView nazwa_listy = findViewById(R.id.nazwa_listy);
                     nazwa_listy.setText(snapshot.get("title").toString());
                 } else {
-                    Log.d("test3", "Current data: null");
                 }
             }
         });
@@ -159,7 +156,6 @@ public class szczegolylisty extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         ListElementsArrayList.clear();
@@ -183,7 +179,6 @@ public class szczegolylisty extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         ListElementsArrayList.clear();
@@ -207,7 +202,6 @@ public class szczegolylisty extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         ListElementsArrayList.clear();

@@ -28,8 +28,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *Klasa wyświetlająca listy
+ * */
 public class lista extends AppCompatActivity {
-
+    /**
+     *Funkcja wyświetlająca wszystkie listy
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +55,11 @@ public class lista extends AppCompatActivity {
 
 
         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * Funkcja przekierowująca do szczegółów listy
+             * */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("adam","wciśnieto liste"+ListElementsArrayList.get(position));
                 Intent intent = new Intent(getApplicationContext(),szczegolylisty.class);
                 intent.putExtra("nazwa_listy",ListElementsArrayList.get(position));
                 intent.putExtra("trybito","lista");
@@ -62,12 +69,18 @@ public class lista extends AppCompatActivity {
         });
         lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
+            /**
+             * Funkcja usuwająca element z listy
+             * */
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 usuwanie_listy(ListElementsArrayList.get(position),db);
                 return true;
             }
         });
         dodanie_listy.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Funkcja przekierowująca do dodawania nowej listy
+             * */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), dodawanie_listy.class);
@@ -88,7 +101,6 @@ public class lista extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         ListElementsArrayList.clear();

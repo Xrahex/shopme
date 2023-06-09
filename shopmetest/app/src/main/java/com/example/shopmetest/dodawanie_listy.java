@@ -23,7 +23,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+/**
+ *Klasa dodawania list
+ * */
 public class dodawanie_listy extends AppCompatActivity {
 
     EditText dodanie_listy;
@@ -64,7 +66,6 @@ public class dodawanie_listy extends AppCompatActivity {
 
         Intent intent= getIntent();
         String mode =intent.getStringExtra("trybik");
-        Log.d("mode8", mode);
         if(mode.equals("New schema")) {
             aSwitch.setVisibility(View.INVISIBLE);
         }
@@ -146,13 +147,11 @@ public class dodawanie_listy extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         ListElementsArrayList.clear();
                         for (QueryDocumentSnapshot doc : value) {
                             if (doc.getId() != null) {
-                                Log.d("testerinio",ListElementsArrayList.toString());
                                 ListElementsArrayList.add(doc.getId());
                                 adapter.notifyDataSetChanged();
                             }

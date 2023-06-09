@@ -32,11 +32,9 @@ android {
         viewBinding true
     }
     testOptions {
-        unitTests {
-            // Rozwiązuje problem z błędem "Method myPid in android.os.Process not mocked"
-            includeAndroidResources = true
-        }
+        unitTests.returnDefaultValues = true
     }
+
 }
 
 dependencies {
@@ -50,6 +48,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'androidx.test:core:1.4.0'
     implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.3.0'
+    implementation files('C:\\Users\\Xrahex\\AppData\\Local\\Android\\Sdk\\platforms\\android-33\\android.jar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

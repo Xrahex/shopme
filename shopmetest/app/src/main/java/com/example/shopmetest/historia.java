@@ -21,8 +21,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ *Klasa historii zakupów
+ * */
 public class historia extends AppCompatActivity {
-
+    /**
+     *Funkcja odpowiadająca za uzupełnienie listy historii
+     * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +65,6 @@ public class historia extends AppCompatActivity {
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
                         if (e != null) {
-                            Log.w("wynik80", "Listen failed.", e);
                             return;
                         }
                         ListElementsArrayList.clear();
